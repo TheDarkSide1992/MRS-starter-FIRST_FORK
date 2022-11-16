@@ -30,4 +30,8 @@ public class MovieModel {
         moviesToBeViewed.clear();
         moviesToBeViewed.addAll(searchResults);
     }
+
+    public void createNewMovie(String tittle, int year) throws Exception {
+        movieManager.createNewMovie(tittle, year);
+    }
 }
