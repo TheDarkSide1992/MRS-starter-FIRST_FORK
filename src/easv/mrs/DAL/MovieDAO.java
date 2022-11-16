@@ -3,14 +3,41 @@ package easv.mrs.DAL;
 import easv.mrs.BE.Movie;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDAO implements IMovieDataAccess {
 
     private static final String MOVIES_FILE = "data/movie_titles.txt";
+    public Path pathToFile = Path.of(MOVIES_FILE);
 
     public List<Movie> getAllMovies() throws IOException {
-        return null;
+        //Read all lines from file.
+        List<String> lines = Files.readAllLines(pathToFile);
+        List<Movie> movies = new ArrayList<>();
+
+        //Pass each line to a movie object
+        for (String line:lines) {
+
+            //Separate eatch line for every regex (","), and makes a array, with a limmit of 2 splits
+            String[] sepLine = line.split(",",3);
+
+            //map eatch separtet line to movie object
+            int id = Integer.parseInt(sepLine[0]);
+            int year = Integer.parseInt(sepLine[1]);
+            String name = sepLine[2];
+
+            //Creates an object with data
+            Movie movie = new Movie(id,year,name);
+
+            //Adds object to list of object
+            movies.add(movie);
+        }
+
+        //return List of Movie objects
+        return movies;
     }
 
     @Override
