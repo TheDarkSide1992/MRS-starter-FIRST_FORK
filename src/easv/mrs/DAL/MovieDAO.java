@@ -6,7 +6,10 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static java.nio.file.StandardOpenOption.APPEND;
 
 public class MovieDAO implements IMovieDataAccess {
 
@@ -36,13 +39,24 @@ public class MovieDAO implements IMovieDataAccess {
             movies.add(movie);
         }
 
+        //Sorts the list of all movies based on ID, the movie with the lowest valued ID wil be first int the list.
+        movies.sort(Comparator.comparing(Movie::getId));
+
         //return List of Movie objects
         return movies;
     }
 
     @Override
     public Movie createMovie(String title, int year) throws Exception {
-        return null;
+        //Makes new ID
+        int id = getNextID();
+        //Makes movie for db
+        String newLIne = id + "," + year + "," + title;
+
+        //Append new Line ussing java NIO
+        Files.write(pathToFile, ("\r\n" + newLIne).getBytes(), APPEND);
+
+        return new Movie(id, year, title);
     }
 
     @Override
@@ -53,6 +67,13 @@ public class MovieDAO implements IMovieDataAccess {
     @Override
     public void deleteMovie(Movie movie) throws Exception {
 
+    }
+
+    private int getNextID() throws IOException {
+        List<Movie> movies = getAllMovies();
+
+        Movie lastMovie = movies.get(movies.size()-1);
+        return lastMovie.getId() + 1;
     }
 
 
