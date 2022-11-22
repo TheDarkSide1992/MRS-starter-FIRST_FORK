@@ -15,6 +15,7 @@ public class MovieManager {
 
     private IMovieDataAccess movieDAO;
 
+
     public MovieManager() {
         movieDAO = new MovieDAO_DB();
     }
@@ -32,5 +33,7 @@ public class MovieManager {
     public Movie createNewMovie(String tittle, int year) throws Exception {
         return movieDAO.createMovie(tittle, year);
     }
+
+
 
 }

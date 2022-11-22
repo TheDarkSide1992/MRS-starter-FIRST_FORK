@@ -3,9 +3,13 @@ package easv.mrs.DAL.db;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import easv.mrs.BE.Movie;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
 public class MyDatabaseConnector {
 
@@ -31,7 +35,6 @@ public class MyDatabaseConnector {
     public Connection getConnection() throws SQLServerException {
         return dataSource.getConnection();
     }
-
 
     public static void main(String[] args) throws SQLException {
 

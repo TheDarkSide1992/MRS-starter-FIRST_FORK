@@ -2,6 +2,7 @@ package easv.mrs.DAL.db;
 
 import easv.mrs.BE.Movie;
 import easv.mrs.DAL.IMovieDataAccess;
+import easv.mrs.DAL.MovieDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
