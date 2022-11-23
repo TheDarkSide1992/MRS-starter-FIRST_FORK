@@ -37,4 +37,25 @@ public class MovieModel {
         //Adds movie to observable list
         moviesToBeViewed.add(m);
     }
+
+    public void updateMovie(Movie updatedMovie) throws Exception{
+        //Call BLL
+        //update movie in DB
+        movieManager.updateMovie(updatedMovie);
+
+        //UpdateListView
+        //Clears the list, and returns a new list from DB
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(movieManager.getAllMovies());
+    }
+
+    public void deleteMovie(Movie movieForDeletion) throws Exception {
+        //Delete Movie
+        movieManager.deleteMovie(movieForDeletion);
+
+        //UpdateListView
+        //Clears the list, and returns a new list from DB
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(movieManager.getAllMovies());
+    }
 }

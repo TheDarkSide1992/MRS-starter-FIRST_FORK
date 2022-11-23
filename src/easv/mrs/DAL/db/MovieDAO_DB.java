@@ -64,7 +64,7 @@ public class MovieDAO_DB implements IMovieDataAccess {
             stmt.setString(1,title);
             stmt.setInt(2,year);
 
-            //Run the specfired sql statenebt and update DB
+            //Run the specfied sql statenebt and update DB
             stmt.executeUpdate();
 
             //get the generated ID from DB
@@ -85,13 +85,49 @@ public class MovieDAO_DB implements IMovieDataAccess {
     }
 
     public void updateMovie(Movie movie) throws Exception {
-        //TODO Do this
-        throw new UnsupportedOperationException();
+
+        try(Connection conn = databaseConnector.getConnection()){
+
+            //sql code for DB
+            String sql = "UPDATE Movie set Title = ?, Year = ? WHERE Id = ?";
+
+            //Connnect prepared stametnt to sql
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            //Bind parameters to stmt
+            stmt.setString(1, movie.getTitle());
+            stmt.setInt(2, movie.getYear());
+            stmt.setInt(3,movie.getId());
+
+            //Run the specfied sql statenebt and update DB
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Could not update Movie" + ex);
+        }
+
     }
 
     public void deleteMovie(Movie movie) throws Exception {
-        //TODO Do this
-        throw new UnsupportedOperationException();
+        try(Connection conn = databaseConnector.getConnection()){
+
+            //sql code for DB
+            String sql = "DELETE Movie WHERE Id = ?";
+
+            //Connnect prepared stametnt to sql
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            //Bind parameters to stmt
+            stmt.setInt(1,movie.getId());
+
+            //Run the specfied sql statenebt and update DB
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Could not delete Movie" + ex);
+        }
     }
 
     public List<Movie> searchMovies(String query) throws Exception {
