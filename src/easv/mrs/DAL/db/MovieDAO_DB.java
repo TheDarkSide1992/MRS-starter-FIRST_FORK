@@ -113,7 +113,7 @@ public class MovieDAO_DB implements IMovieDataAccess {
         try(Connection conn = databaseConnector.getConnection()){
 
             //sql code for DB
-            String sql = "DELETE Movie WHERE Id = ?";
+            String sql = "DELETE FROM Movie WHERE Id = ?";
 
             //Connnect prepared stametnt to sql
             PreparedStatement stmt = conn.prepareStatement(sql);
